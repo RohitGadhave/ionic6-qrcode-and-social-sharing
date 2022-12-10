@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-title>
+      Barcode Scanner
+    </ion-title>
+    <ion-buttons slot="primary" (click)="shareData()">
+      <ion-button>
+        <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <!-- <ion-toolbar color="medium">
+    <ion-title>
+      Angular + Cordova
+    </ion-title>
+  </ion-toolbar> -->
+</ion-header>
+
+<ion-content>
+  <ion-button expand="full" color="primary" (click)="scanBarcode()">Scan a Code</ion-button>
+
+  <ion-card *ngIf="model.qr_data">
+
+    <ion-card-header>
+      <ion-card-title>
+        <ion-item lines="none">
+          <ion-label>QR Scanning Data</ion-label>
+          <ion-badge slot="end" *ngIf="model?.type">Type: {{model.type}}</ion-badge>
+        </ion-item>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Name</ion-label>
+          <ion-input type="number" name="qr_data" [(ngModel)]="model.qr_data"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Count</ion-label>
+          <ion-input type="number" name="count" [(ngModel)]="model.count"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button expand="full" color="success" (click)="unshiftBackupData()">Add</ion-button>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="scantedDataBackup?.length">
+    <ion-card-header>
+      <ion-card-title>Data</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let item of scantedDataBackup">
+          <ion-label>{{item?.qr_data}}</ion-label>
+          <ion-label slot="end">{{item?.count?item?.count:0}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
